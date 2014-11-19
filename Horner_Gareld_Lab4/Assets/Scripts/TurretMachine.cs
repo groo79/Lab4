@@ -90,12 +90,17 @@ public class TurretMachine : MonoBehaviour
 		void LocatePlayer ()
 		{
 				distance = Vector3.Distance (transform.position, player.position);
-				Vector3 tarDir = new Vector3 ((player.position.x - transform.position.x), 0, (player.position.z - transform.position.z));
-				float step = data.GetRotationSpeed () * Time.deltaTime;
-				Vector3 newDir = Vector3.RotateTowards(transform.forward, tarDir, step, 0.0F);
-				Debug.DrawRay(transform.position, newDir, Color.red);
-				transform.rotation = Quaternion.LookRotation(newDir);
-				Debug.Log (distance + " meters to player");
+				Vector3 tarDir = player.position - transform.position;
+				Vector3 forward = transform.forward;
+				float angle = Vector3.Angle (tarDir, forward);
+				if (angle <= data.GetAngle ()) {
+						tarDir.y = 0;
+						float step = data.GetRotationSpeed () * Time.deltaTime;
+						Vector3 newDir = Vector3.RotateTowards (transform.forward, tarDir, step, 0.0F);
+						Debug.DrawRay (transform.position, newDir, Color.red);
+						transform.rotation = Quaternion.LookRotation (newDir);
+						Debug.Log (distance + " meters to player");
+				}
 		}
 
 		//accessors
