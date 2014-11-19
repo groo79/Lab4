@@ -5,6 +5,7 @@ public class ActorStateMachine : MonoBehaviour
 {
 
 	Animator anim;
+	[SerializeField]
 	private float speed = 1.0f;
 	[SerializeField]
 	private float maxDeltaVel = 10.0f;
