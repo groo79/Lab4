@@ -5,14 +5,15 @@ public class ActorStateMachine : MonoBehaviour
 {
 
 	Animator anim;
-	[SerializeField]
-	private float speed = 1.0f;
-	[SerializeField]
-	private float maxDeltaVel = 10.0f;
+
+	private float maxDeltaVel;
+
+	ActorData data;
 
 		// Use this for initialization
 		void Start ()
 		{
+				data = GetComponent<ActorData> ();
 				anim = GetComponent<Animator> ();
 				if (anim == null) {
 						Debug.Log ("animator not assigned to actor");
@@ -28,11 +29,13 @@ public class ActorStateMachine : MonoBehaviour
 		anim.SetFloat ("Speed", y);
 		anim.SetFloat ("Direction", h);
 
-		transform.Rotate (0, h, 0);
+		transform.Rotate (0, h * data.GetRotateSpeed(), 0);
 
 		Vector3 targetDirection = transform.forward * y;
-		Vector3 targetVelocity = targetDirection * speed;
+		Vector3 targetVelocity = targetDirection * data.GetSpeed();
 		Vector3 deltaVelocity = targetVelocity - rigidbody.velocity;
+
+		maxDeltaVel = data.GetMaxVel();
 
 		deltaVelocity.x = Mathf.Clamp (deltaVelocity.x, -maxDeltaVel, maxDeltaVel);
 		deltaVelocity.z = Mathf.Clamp (deltaVelocity.z, -maxDeltaVel, maxDeltaVel);
