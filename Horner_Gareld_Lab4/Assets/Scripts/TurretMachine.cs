@@ -118,4 +118,8 @@ public class TurretMachine : MonoBehaviour
 		{
 				return distance;
 		}
+
+	public Transform GetPlayer(){
+		return player;
+	}
 }
