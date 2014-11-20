@@ -19,12 +19,14 @@ public class TurretMachine : MonoBehaviour
 		TurretData data;
 		Transform player;
 		float distance;
+		Raycast ray;
 
 
 		// Use this for initialization
 		void Start ()
 		{
 				data = GetComponent<TurretData> ();
+				ray = GetComponent<Raycast> ();
 
 				fsm.Add (TurretState.Idle, IdleState);
 				fsm.Add (TurretState.Tracking, TrackingState);
@@ -44,15 +46,17 @@ public class TurretMachine : MonoBehaviour
 
 		void OnTriggerStay (Collider other)
 		{
-				if (other.tag == "Player") {
+				if (other.tag == "Player" && ray.IsSeeing () == false) {
 						player = other.gameObject.transform;
 						SetState (TurretState.Tracking);
 
 				} 
 		}
-	void OnTriggerExit(Collider other){
-		SetState (TurretState.Idle);
-	}
+
+		void OnTriggerExit (Collider other)
+		{
+				SetState (TurretState.Idle);
+		}
 
 		//state functions
 
@@ -75,12 +79,17 @@ public class TurretMachine : MonoBehaviour
 		void TrackingState ()
 		{
 				LocatePlayer ();
+				if (ray.IsSeeing () == true) {
+						SetState (TurretState.Attack);
+				}
 			
 		}
 
 		void AttackState ()
 		{
-
+				if (ray.IsSeeing () == false) {
+						SetState (TurretState.Tracking);
+				}
 		}
 
 
@@ -99,7 +108,7 @@ public class TurretMachine : MonoBehaviour
 						Vector3 newDir = Vector3.RotateTowards (transform.forward, tarDir, step, 0.0F);
 						Debug.DrawRay (transform.position, newDir, Color.red);
 						transform.rotation = Quaternion.LookRotation (newDir);
-						Debug.Log (distance + " meters to player");
+						//Debug.Log (distance + " meters to player");
 				}
 		}
 

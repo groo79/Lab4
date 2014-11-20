@@ -24,7 +24,19 @@ public class Raycast : MonoBehaviour {
 	void Update () {
 
 		if (Physics.Raycast(transform.position, transform.forward, out hit, length)){
-			Debug.Log("I see something");
+			//Debug.Log("I see something");
+			if (hit.collider.tag == "Player"){
+				seeing = true;
+				Debug.Log("Seeing Player");
+			}
+			else
+			{
+				seeing = false;
+			}
+		}
+		else 
+		{
+			seeing = false;
 		}
 		Debug.DrawRay (transform.position, transform.forward * length, Color.green);
 	}
