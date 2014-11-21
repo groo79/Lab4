@@ -10,7 +10,7 @@ public class ActorStateMachine : MonoBehaviour
 	//***********************************************
 	//Name Gareld Horner
 	//Date 11/18/2014
-	//
+	//Credit Prototyping I experiments
 	//purpose set data model for turret state machine
 	//***********************************************
 

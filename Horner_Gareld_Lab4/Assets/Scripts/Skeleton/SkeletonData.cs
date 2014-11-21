@@ -6,7 +6,7 @@ public class SkeletonData : MonoBehaviour {
 	/// <summary>
 	/// Name: Gareld Horner
 	/// Date: 11/20/2014
-	/// 
+	/// credit: Skeletons Pack by bshgame available at http://u3d.as/2fA in Unity asset store.
 	/// Purpose: data for skeleton enemy
 	/// </summary>
 

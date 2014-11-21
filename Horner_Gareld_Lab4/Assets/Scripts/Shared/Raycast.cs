@@ -7,7 +7,7 @@ public class Raycast : MonoBehaviour
 		/// <summary>
 		/// Name: Gareld Horner
 		/// Date: 11/17/2014
-		/// 
+		/// Credit: Unity Scripting API on raycasting
 		/// Purpose: provide a racasting script that is versatile and can be used for many things
 		/// </summary>
 

@@ -9,7 +9,7 @@ public class TurretMachine : MonoBehaviour
 	//***********************************************
 	//Name Gareld Horner
 	//Date 11/18/2014
-	//
+	//Credit: Unity Answers, Scripting API.
 	//purpose set data model for turret state machine
 	//***********************************************
 
