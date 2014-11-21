@@ -10,6 +10,10 @@ public class SkeletonData : MonoBehaviour {
 	/// Purpose: data for skeleton enemy
 	/// </summary>
 
+	[SerializeField]
+	private float WalkSpeed;
+	[SerializeField]
+	private float RunSpeed;
 
 
 
