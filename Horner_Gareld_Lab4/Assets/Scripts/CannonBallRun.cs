@@ -1,46 +1,69 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BallisticVelocity : MonoBehaviour {
+public class CannonBallRun : MonoBehaviour {
+
+	private float shotTime;
+	
+	private float fireRate = 5.0f;
+
+	private float shootAngle = 45;
+
+	[SerializeField]
+	private Rigidbody cannonBall;
+
+	//private Vector3 target = Player.Position;
+
+	private float canAim;
+
+	private TurretMachine gobLobber;
+
+	//private float distance = TurretMachine.GetDistance; 
 	
 	// Use this for initialization
 	void Start () {
-		
-//		rigidbody.AddForce(transform.forward  force, ForceMode.Impulse);
-//		rigidbody.AddForce(transform.up  force, ForceMode.Impulse);
-//		rigidbody.AddTorque(torque, ForceMode.Force);
+
+		gobLobber = GetComponent<TurretMachine> ();
 		
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		shotTime += Time.deltaTime;
-		if(shotTime >= fireRate)
-		{
-			if(!(name.GetComponent("Tower") as Tower).canAim)
-			{
-				GameObject cannonBall = Instantiate(mortar, gunTip.position, Quaternion.identity) as GameObject;
-				cannonBall.rigidbody.velocity = BallisticVelocity(target, shootAngle);
-				Destroy(cannonBall, 10); // cannonball disappears after 10 seconds
-				shotTime = 0.0f;
-			}
-		}
-	}
-	Vector3 BallisticVelocity(Transform target, float angle)
-	{
-		Vector3 dir = target.position - gunTip.position; // get Target Direction
-		float height = dir.y; // get height difference
-		dir.y = 0; // retain only the horizontal direction
-		float dist = dir.magnitude; // get horizontal distance
-		float a = angle * Mathf.Deg2Rad; // Convert angle to radians
-		dir.y = dist * Mathf.Tan(a); // set dir to the elevation angle.
-		dist += height / Mathf.Tan(a); // Correction for small height differences
-		// Calculate the velocity magnitude
-		float velocity = Mathf.Sqrt(dist * Physics.gravity.magnitude / Mathf.Sin(2 * a));
-		return velocity * dir.normalized; // Return the velocity vector.
+				shotTime += Time.deltaTime;
 
-	}
+				if (shotTime >= fireRate) {
+
+						float velocity = Mathf.Sqrt (gobLobber.GetDistance () * Physics.gravity.magnitude);//determine velocity required
+
+						//Instantiate(GameObject.cannonBall, new Vector3(i * 2.0F, 0, 0), Quaternion.identity) as Transform;//instantiate cannonball
+						//i++;
+
+						Rigidbody clone;
+
+						clone = Instantiate (cannonBall, transform.position, transform.rotation) as Rigidbody;
+
+						clone.velocity = transform.TransformDirection (Vector3.forward * velocity);
+
+						//on impact destroy game object((created new script and attached it to the cannonBall game object))
+
+				}
+
+		}
+
+
+	
+
+	
+	
+	//Determine distance to target
+		
+	//Determine force or velocity required to reach target
+			
+	//Instantiate projectile at velocity determined
+			
+	//On impact apply damage and destroy projectile
+
 	
 
 }

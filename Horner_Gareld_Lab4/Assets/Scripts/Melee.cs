@@ -5,7 +5,9 @@ public class Melee : MonoBehaviour {
 
 	int damageDealt = 50;
 	
-	 float distance;
+	float distance;
+
+	RaycastHit hit;
 	
 
 	// Use this for initialization
@@ -15,20 +17,19 @@ public class Melee : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () { 
+
+		if (Input.GetButton(" Fire1 ")) {
+			
+			if (Physics.Raycast (transform.position, transform.forward, out hit)){
+				
+				distance = hit.distance;
+
+			}
+			
+		}
 	
 	}
 
-	if(Input.GetKeyDown(KeyCode.alpha1) {
 
-		var hit : RaycastHit;
-
-		if (Physics.Raycast (transform.position, transform.TransformDirection(Vector3.forward), hit)){
-
-			Distance = hit.distance;
-
-			hit.Transform.SendMessage("ApplyDamage",damageDealt, SendMessageOptions.DontRequireReciever);
-		}
-
-	}
 }
  

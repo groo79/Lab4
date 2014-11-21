@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{BC0CDDF8-B864-32AE-8790-758893B638CB}") = "Horner_Gareld_Lab4", "Assembly-CSharp.csproj", "{F182D7C8-815B-6B2B-B7E9-3843EB30F0B9}"
 EndProject
+Project("{BC0CDDF8-B864-32AE-8790-758893B638CB}") = "Horner_Gareld_Lab4", "Assembly-UnityScript.unityproj", "{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,11 +15,16 @@ Global
 		{F182D7C8-815B-6B2B-B7E9-3843EB30F0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F182D7C8-815B-6B2B-B7E9-3843EB30F0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F182D7C8-815B-6B2B-B7E9-3843EB30F0B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 																																		GlobalSection(MonoDevelopProperties) = preSolution
+												GlobalSection(MonoDevelopProperties) = preSolution
 				GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
