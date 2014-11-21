@@ -131,7 +131,6 @@ public class ActorStateMachine : MonoBehaviour
 
 		void MovePlayer ()
 		{
-				IsRunning ();
 				float h = Input.GetAxis ("Horizontal");
 				float y = Input.GetAxis ("Vertical");
 				anim.SetFloat ("Speed", y);

@@ -104,7 +104,9 @@ public class TurretMachine : MonoBehaviour
 
 		void LocatePlayer ()
 		{
-				distance = Vector3.Distance (transform.position, player.position);
+				Vector3 target = player.position;
+				target.y = 0;
+				distance = Vector3.Distance (transform.position, target);
 				Vector3 tarDir = player.position - transform.position;
 				Vector3 forward = transform.forward;
 				float angle = Vector3.Angle (tarDir, forward);

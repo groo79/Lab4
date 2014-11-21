@@ -52,7 +52,8 @@
      <Compile Include="Assets\Scripts\Shared\Raycast.cs" />
      <Compile Include="Assets\Scripts\Shared\waypoint.cs" />
      <Compile Include="Assets\Scripts\Skeleton\Dagger.cs" />
-     <Compile Include="Assets\Scripts\Skeleton\SkelletonRaycast.cs" />
+     <Compile Include="Assets\Scripts\Skeleton\SkeletonData.cs" />
+     <Compile Include="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretData.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretMachine.cs" />
      <Compile Include="Assets\SwordGirl\Parallax\Scripts\Button.cs" />
