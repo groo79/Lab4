@@ -48,7 +48,9 @@ public class ActorStateMachine : MonoBehaviour
 						Debug.Log ("animator not assigned to actor");
 				}
 				moveSpeed = data.GetSpeed ();
-	
+		if (anim == null) {
+			Debug.Log("No Animator Attached");
+		}
 		}
 	
 		// Update is called once per frame
