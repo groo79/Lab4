@@ -20,12 +20,12 @@ public class TurretMachine : MonoBehaviour
 				Attack
 		}
 
-		TurretState curState;
-		Dictionary<TurretState, Action> fsm = new Dictionary<TurretState, Action> ();
-		TurretData data;
-		Transform player;
-		float distance;
-		Raycast ray;
+		private TurretState curState;
+		private Dictionary<TurretState, Action> fsm = new Dictionary<TurretState, Action> ();
+		private TurretData data;
+		private Transform player;
+		private float distance;
+		private Raycast ray;
 
 
 		// Use this for initialization
