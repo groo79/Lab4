@@ -1,13 +1,20 @@
-﻿using UnityEngine;
+﻿//Name Aaron Barnard
+//Date 11/18/2014
+//Credit unity API and unity tutorials.
+//Instantiate arcing projectile that targets the player's position
+
+
+using UnityEngine;
 using System.Collections;
 
 public class CannonBallRun : MonoBehaviour {
 
 	private float shotTime;
 	
-	private float fireRate = 5.0f;
+	[SerializeField]
+	private float fireRate = 3.0f;
 
-	private float shootAngle = 45;
+	private bool Boom = false;
 
 	[SerializeField]
 	private Rigidbody cannonBall;
@@ -30,22 +37,33 @@ public class CannonBallRun : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-				shotTime += Time.deltaTime;
+				if (Boom) {
+						shotTime += Time.deltaTime;
 
-				if (shotTime >= fireRate) {
+						if (shotTime >= fireRate) {
 
-						float velocity = Mathf.Sqrt (gobLobber.GetDistance () * Physics.gravity.magnitude);//determine velocity required
+								float velocity = Mathf.Sqrt (gobLobber.GetDistance () * Physics.gravity.magnitude);//determine velocity required
 
-						//Instantiate(GameObject.cannonBall, new Vector3(i * 2.0F, 0, 0), Quaternion.identity) as Transform;//instantiate cannonball
-						//i++;
+								//Instantiate(GameObject.cannonBall, new Vector3(i * 2.0F, 0, 0), Quaternion.identity) as Transform;//instantiate cannonball
+								//i++;
 
-						Rigidbody clone;
+								Rigidbody clone;
 
-						clone = Instantiate (cannonBall, transform.position, transform.rotation) as Rigidbody;
+								clone = Instantiate (cannonBall, transform.position, transform.rotation) as Rigidbody;
 
-						clone.velocity = transform.TransformDirection (Vector3.forward * velocity);
+								clone.velocity = transform.TransformDirection (Vector3.forward * velocity);
 
-						//on impact destroy game object((created new script and attached it to the cannonBall game object))
+								shotTime = 0.0f
+
+								//on impact destroy game object((created new script and attached it to the cannonBall game object))
+
+						}
+
+				}
+
+		public void GoblobberGoesBoom (bool fire){
+
+			Boom = fire;
 
 				}
 
