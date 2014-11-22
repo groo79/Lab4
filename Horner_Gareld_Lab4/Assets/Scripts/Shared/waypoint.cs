@@ -3,13 +3,17 @@ using System.Collections;
 
 public class waypoint : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	//***********************************************
+	//Name Gareld Horner
+	//Date 11/20/2014
+	//
+	//Hold data on Waypoint
+	//***********************************************
+
+	[SerializeField]
+	private bool longPause;
+
+	public bool getPause(){
+		return longPause;
 	}
 }

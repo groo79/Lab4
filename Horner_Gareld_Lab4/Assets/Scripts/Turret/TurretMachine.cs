@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 public class TurretMachine : MonoBehaviour
 {
-	//***********************************************
-	//Name Gareld Horner
-	//Date 11/18/2014
-	//Credit: Unity Answers, Scripting API.
-	//purpose set data model for turret state machine
-	//***********************************************
+		//***********************************************
+		//Name Gareld Horner
+		//Date 11/18/2014
+		//Credit: Unity Answers, Scripting API.
+		//purpose set data model for turret state machine
+		//***********************************************
 
 		enum TurretState
 		{
@@ -26,6 +26,7 @@ public class TurretMachine : MonoBehaviour
 		private Transform player;
 		private float distance;
 		private Raycast ray;
+		private CannonBallRun shooster;
 
 
 		// Use this for initialization
@@ -33,6 +34,7 @@ public class TurretMachine : MonoBehaviour
 		{
 				data = GetComponent<TurretData> ();
 				ray = GetComponent<Raycast> ();
+				shooster = GetComponent<CannonBallRun> ();
 
 				fsm.Add (TurretState.Idle, IdleState);
 				fsm.Add (TurretState.Tracking, TrackingState);
@@ -93,8 +95,10 @@ public class TurretMachine : MonoBehaviour
 
 		void AttackState ()
 		{
+				shooster.GoblobberGoesBoom (true);
 				if (ray.IsSeeing () == false) {
 						SetState (TurretState.Tracking);
+						shooster.GoblobberGoesBoom (false);
 				}
 		}
 
@@ -127,7 +131,8 @@ public class TurretMachine : MonoBehaviour
 				return distance;
 		}
 
-	public Transform GetPlayer(){
-		return player;
-	}
+		public Transform GetPlayer ()
+		{
+				return player;
+		}
 }
