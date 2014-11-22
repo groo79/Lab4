@@ -32,6 +32,8 @@ public class ActorStateMachine : MonoBehaviour
 		Dictionary<PlayerStates, Action> fsm = new Dictionary<PlayerStates, Action> ();
 		Animator anim;
 		private float maxDeltaVel;
+		[SerializeField]
+		private float force = 500;
 		ActorData data;
 		private bool isRunning = false;
 		private float moveSpeed;
@@ -192,7 +194,30 @@ public class ActorStateMachine : MonoBehaviour
 		
 		
 		}
+
+	/*
+	 * 	void OnTriggerEnter(Collider other) { 
+
+		Vector3 dir = other.transform.position - transform.position; dir.y = 0; // keep the force horizontal 
+
+		if (other.rigidbody){ // use AddForce for rigidbodies: 
+
+			other.rigidbody.AddForce(dir.normalized force);
+
+ 		} else { // use a special script for character controllers:
+	// try to get the enemy's script ImpactReceiver:
+
+		ImpactReceiver script = other.GetComponent< ImpactReceiver>(); // if it has such script, add the impact force:
+ 
+		if (script) script.AddImpact(dir.normalized force); 
+
+		} 
+
+		} 
+ 	*/
+
 	
+
 	
 
 
