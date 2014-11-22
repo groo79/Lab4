@@ -46,10 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CannonBall.cs" />
      <Compile Include="Assets\Scripts\Actor\ActorData.cs" />
      <Compile Include="Assets\Scripts\Actor\ActorStateMachine.cs" />
      <Compile Include="Assets\Scripts\Camera\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\CannonBall.cs" />
      <Compile Include="Assets\Scripts\GameMenu.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\Melee.cs" />
