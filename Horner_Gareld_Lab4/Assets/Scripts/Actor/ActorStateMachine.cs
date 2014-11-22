@@ -7,14 +7,14 @@ using System.Collections.Generic;
 public class ActorStateMachine : MonoBehaviour
 {
 
-	//***********************************************
-	//Name Gareld Horner & Aaron Barnard
-	//Date 11/18/2014
-	/*Credit Prototyping I experiments & Unity API 
+		//***********************************************
+		//Name Gareld Horner & Aaron Barnard
+		//Date 11/18/2014
+		/*Credit Prototyping I experiments & Unity API 
 	 * Skeleton asset courtesy of unity asset store 
 	 * Female warrior Asset courtesy of unity asset store https://www.assetstore.unity3d.com/en/#!/content/2613*/
-	//purpose set data model for turret state machine
-	//***********************************************
+		//purpose set data model for turret state machine
+		//***********************************************
 
 		enum PlayerStates
 		{
@@ -63,10 +63,10 @@ public class ActorStateMachine : MonoBehaviour
 						Debug.Log ("animator not assigned to actor");
 				}
 				moveSpeed = data.GetSpeed ();
-		if (anim == null) {
-			Debug.Log("No Animator Attached");
+				if (anim == null) {
+						Debug.Log ("No Animator Attached");
 
-		}
+				}
 		}
 	
 		// Update is called once per frame
@@ -75,36 +75,36 @@ public class ActorStateMachine : MonoBehaviour
 				
 				fsm [curstate].Invoke ();
 				IsRunning ();
-			if (iNeedABandAid.GetHealth() <=0) {
+				if (iNeedABandAid.GetHealth () <= 0) {
 
-			boughtTheFarm = true;
-			SetState(PlayerStates.Death);
+						boughtTheFarm = true;
+						SetState (PlayerStates.Death);
 
-			}
+				}
 
 		
-			if (Input.GetButton ("Fire1")) { //combat
+				if (Input.GetButton ("Fire1")) { //combat
 
-				Debug.Log("Light Attack active");
-				SetState(PlayerStates.LightAttack);
+						Debug.Log ("Light Attack active");
+						SetState (PlayerStates.LightAttack);
 			
-			}
+				}
 		
-			if (Input.GetButton ("Fire2")) { //combat
+				if (Input.GetButton ("Fire2")) { //combat
 
 
-				Debug.Log("Heavy attack active");
-				SetState(PlayerStates.HeavyAttack);
+						Debug.Log ("Heavy attack active");
+						SetState (PlayerStates.HeavyAttack);
 			
-			}
+				}
 
-			if (Input.GetButton ("Fire3")) { //combat
+				if (Input.GetButton ("Fire3")) { //combat
 			
 			
-				Debug.Log("Kick Active");
-				SetState(PlayerStates.Kick);
+						Debug.Log ("Kick Active");
+						SetState (PlayerStates.Kick);
 			
-		}
+				}
 		
 		}
 	 
@@ -159,33 +159,36 @@ public class ActorStateMachine : MonoBehaviour
 				}
 		}
 
-		void DeathState () { //combat
+		void DeathState ()
+		{ //combat
 
-		//anim.SetBool ();
+				anim.SetBool ("Die", true);
 	
 		}
 
-		void LightAttackState (){ //combat normal damage
+		void LightAttackState ()
+		{ //combat normal damage
 
-		anim.SetTrigger ("AttackLight");
-		SetState (PlayerStates.Idle);
+				anim.SetTrigger ("AttackLight");
+				SetState (PlayerStates.Idle);
 	
 
 		}
 
-		void HeavyAttackState (){ //combat normal damage * 1.5
+		void HeavyAttackState ()
+		{ //combat normal damage * 1.5
 		
-		anim.SetTrigger ("AttackHeavy");
-		SetState (PlayerStates.Idle);
+				anim.SetTrigger ("AttackHeavy");
+				SetState (PlayerStates.Idle);
 		
 		
 		}
-		
 	
-		void KickState (){ //combat (no damage just knocked back 2 meters unless emplaced ie. turret)
+		void KickState ()
+		{ //combat (no damage just knocked back 2 meters unless emplaced ie. turret)
 		
-		anim.SetTrigger ("Kick");
-		SetState (PlayerStates.Idle);
+				anim.SetTrigger ("Kick");
+				SetState (PlayerStates.Idle);
 		
 		
 		}
@@ -211,35 +214,37 @@ public class ActorStateMachine : MonoBehaviour
 
 		void MovePlayer ()
 		{
-				float h = Input.GetAxis ("Horizontal");
-				float y = Input.GetAxis ("Vertical");
-				anim.SetFloat ("Speed", y);
-				anim.SetFloat ("Direction", h);
+				if (!boughtTheFarm) {
+						float h = Input.GetAxis ("Horizontal");
+						float y = Input.GetAxis ("Vertical");
+						anim.SetFloat ("Speed", y);
+						anim.SetFloat ("Direction", h);
 
-				if (h > 0.01f || h < -0.01f) {
-						moving = true;
+						if (h > 0.01f || h < -0.01f) {
+								moving = true;
+						}
+
+						if (y > 0.01f || y < -0.01f) {
+								moving = true;
+						} else {
+								moving = false;	
+						}
+
+
+						transform.Rotate (0, h * data.GetRotateSpeed (), 0);
+		
+						Vector3 targetDirection = transform.forward * y;
+						Vector3 targetVelocity = targetDirection * moveSpeed;
+						Vector3 deltaVelocity = targetVelocity - rigidbody.velocity;
+		
+						maxDeltaVel = data.GetMaxVel ();
+		
+						deltaVelocity.x = Mathf.Clamp (deltaVelocity.x, -maxDeltaVel, maxDeltaVel);
+						deltaVelocity.z = Mathf.Clamp (deltaVelocity.z, -maxDeltaVel, maxDeltaVel);
+						deltaVelocity.y = Mathf.Clamp (deltaVelocity.y, 0, 0);
+		
+						rigidbody.AddForce (deltaVelocity, ForceMode.VelocityChange);
 				}
-
-				if (y > 0.01f || y < -0.01f) {
-						moving = true;
-				} else {
-						moving = false;	
-				}
-
-
-				transform.Rotate (0, h * data.GetRotateSpeed (), 0);
-		
-				Vector3 targetDirection = transform.forward * y;
-				Vector3 targetVelocity = targetDirection * moveSpeed;
-				Vector3 deltaVelocity = targetVelocity - rigidbody.velocity;
-		
-				maxDeltaVel = data.GetMaxVel ();
-		
-				deltaVelocity.x = Mathf.Clamp (deltaVelocity.x, -maxDeltaVel, maxDeltaVel);
-				deltaVelocity.z = Mathf.Clamp (deltaVelocity.z, -maxDeltaVel, maxDeltaVel);
-				deltaVelocity.y = Mathf.Clamp (deltaVelocity.y, 0, 0);
-		
-				rigidbody.AddForce (deltaVelocity, ForceMode.VelocityChange);
 		}
 
 		void IsMoving ()
