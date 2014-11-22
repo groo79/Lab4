@@ -28,6 +28,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		NavMeshAgent skelly;
 		SkeletonData data;
 		Raycast vision;
+		Animator anim;
 		[SerializeField]
 		private float
 				navPoitWait;
@@ -42,6 +43,16 @@ public class SkeletonStateMachine : MonoBehaviour
 				navPoints;
 		int navIndex = 0;
 
+		//variable to call the current wait time in states.
+		float waitTime;
+	
+		//timer used for waiting.
+		float timer;
+
+		//bool to tell if player is seen by enemy
+		bool iSeeYou = false;
+		float speed;
+
 		// Use this for initialization
 		void Start ()
 		{
@@ -55,14 +66,41 @@ public class SkeletonStateMachine : MonoBehaviour
 				skelly = GetComponent<NavMeshAgent> ();
 				data = GetComponent<SkeletonData> ();
 				vision = GetComponent<Raycast> ();
+		anim = GetComponent<Animator> ();
+				waitTime = navPoitWait;
+				navIndex = 0;
+
+				
+
 	
 		}
 	
 		// Update is called once per frame
 		void Update ()
 		{
+				timer += Time.deltaTime;
 				fsm [curstate].Invoke ();
 		}
+
+	void OnTriggerEnter(Collider other){
+
+		if (other.tag == "Waypoint") {
+
+			timer = 0f;
+			SetWaypoint();
+
+		}
+				
+	}
+
+	void OnTriggerExit(Collider other){
+		if (other.tag == "Player") {
+			if (curstate == States.chase){
+				SetState(States.idle);
+			}
+		}
+
+	}
 
 		//state functions
 
@@ -77,16 +115,40 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void IdleState ()
 		{
+		skelly.Stop ();
+		anim.SetFloat("Speed", 0.0f);
+		if (timer >= endPointWait) {
+			SetState(States.patrol);
+		}
 
 		}
 
 		void PatrolState ()
 		{
+		FindSpeed ();
+		skelly.speed = data.GetWalk ();
+		if (speed <= .001f) {
+			anim.SetFloat("Speed",0);
+		}
+
+		if (timer >= waitTime) {
+			FindDestination();
+			anim.SetFloat("Speed", (data.GetWalk() / data.GetRun()));
+		}
+
+
 
 		}
 
 		void ChaseState ()
 		{
+		skelly.speed = data.GetRun ();
+		FindDestination ();
+		anim.SetFloat("Speed", 1f);
+		if (!iSeeYou) {
+			navIndex = 0;
+			SetState(States.idle);
+		}
 
 		}
 
@@ -111,7 +173,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		void SetWaypoint ()
 		{
 				++navIndex;
-				//Debug.Log ("Waypoint " + navIndex + " selected");
+				Debug.Log ("Waypoint " + navIndex + " selected");
 			
 				if (navIndex >= navPoints.Length) {
 				
@@ -119,4 +181,21 @@ public class SkeletonStateMachine : MonoBehaviour
 					
 				}
 		}
+
+		public void CanSee(Transform player, bool canSee){
+		if (canSee) {
+						skelly.SetDestination (player.position);
+						SetState (States.chase);
+						iSeeYou = true;
+				} else {
+			iSeeYou = false;
+		}
+
+		}
+	void FindSpeed(){
+		Vector3 lastPosition = transform.position;
+		float dist = Vector3.Distance (lastPosition, transform.position);
+		speed = Mathf.Abs (dist) / Time.deltaTime;
+	}
+
 }

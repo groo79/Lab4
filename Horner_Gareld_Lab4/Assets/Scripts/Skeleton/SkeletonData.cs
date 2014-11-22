@@ -14,6 +14,8 @@ public class SkeletonData : MonoBehaviour {
 	private float WalkSpeed;
 	[SerializeField]
 	private float RunSpeed;
+	[SerializeField]
+	float angleOfView;
 
 
 
@@ -25,5 +27,16 @@ public class SkeletonData : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public float GetAngle(){
+		return angleOfView;
+	}
+	public float GetRun(){
+		return RunSpeed;
+	}
+
+	public float GetWalk(){
+		return WalkSpeed;
 	}
 }
