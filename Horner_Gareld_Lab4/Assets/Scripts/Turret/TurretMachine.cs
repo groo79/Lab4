@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class TurretMachine : MonoBehaviour
 {
 		//***********************************************
-		//Name Gareld Horner
+		//Name Gareld Horner & Aaron Barnard
 		//Date 11/18/2014
 		//Credit: Unity Answers, Scripting API.
 		//purpose set data model for turret state machine
@@ -86,6 +86,7 @@ public class TurretMachine : MonoBehaviour
 
 		void TrackingState ()
 		{
+				shooster.GoblobberGoesBoom (false);
 				LocatePlayer ();
 				if (ray.IsSeeing () == true) {
 						SetState (TurretState.Attack);
@@ -98,7 +99,7 @@ public class TurretMachine : MonoBehaviour
 				shooster.GoblobberGoesBoom (true);
 				if (ray.IsSeeing () == false) {
 						SetState (TurretState.Tracking);
-						shooster.GoblobberGoesBoom (false);
+						
 				}
 		}
 
