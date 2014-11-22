@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Skeleton\Dagger.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonData.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" />
+     <Compile Include="Assets\Scripts\Skeleton\SkeletonView.cs" />
      <Compile Include="Assets\Scripts\Turret\CannonBallRun.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretData.cs" />
      <Compile Include="Assets\Scripts\Turret\TurretMachine.cs" />
