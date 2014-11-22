@@ -8,9 +8,11 @@ public class ActorStateMachine : MonoBehaviour
 {
 
 	//***********************************************
-	//Name Gareld Horner
+	//Name Gareld Horner & Aaron Barnard
 	//Date 11/18/2014
-	//Credit Prototyping I experiments
+	/*Credit Prototyping I experiments & Unity API 
+	 * Skeleton asset courtesy of unity asset store 
+	 * Female warrior Asset courtesy of unity asset store https://www.assetstore.unity3d.com/en/#!/content/2613*/
 	//purpose set data model for turret state machine
 	//***********************************************
 
@@ -18,7 +20,12 @@ public class ActorStateMachine : MonoBehaviour
 		{
 				Idle,
 				Walking,
-				Running
+				Running,
+				Death,
+				LightAttack,
+				HeavyAttack,
+				Kick
+
 		}
 
 		PlayerStates curstate;
@@ -34,6 +41,9 @@ public class ActorStateMachine : MonoBehaviour
 		[SerializeField]
 		private bool
 				running = false;
+		private Health iNeedABandAid;
+		private bool boughtTheFarm = false;
+		private int attackButton;
 
 		// Use this for initialization
 		void Start ()
@@ -41,15 +51,21 @@ public class ActorStateMachine : MonoBehaviour
 				fsm.Add (PlayerStates.Idle, IdleState);
 				fsm.Add (PlayerStates.Walking, WalkState);
 				fsm.Add (PlayerStates.Running, RunState);
+				fsm.Add (PlayerStates.Death, DeathState);
+				fsm.Add (PlayerStates.LightAttack, LightAttackState);
+				fsm.Add (PlayerStates.HeavyAttack, HeavyAttackState);
+				fsm.Add (PlayerStates.Kick, KickState);
 				data = GetComponent<ActorData> ();
 				anim = GetComponent<Animator> ();
 				SetState (PlayerStates.Idle);
+				iNeedABandAid = GetComponent<Health> ();
 				if (anim == null) {
 						Debug.Log ("animator not assigned to actor");
 				}
 				moveSpeed = data.GetSpeed ();
 		if (anim == null) {
 			Debug.Log("No Animator Attached");
+
 		}
 		}
 	
@@ -59,7 +75,37 @@ public class ActorStateMachine : MonoBehaviour
 				
 				fsm [curstate].Invoke ();
 				IsRunning ();
+			if (iNeedABandAid.GetHealth() <=0) {
 
+			boughtTheFarm = true;
+			SetState(PlayerStates.Death);
+
+			}
+
+		
+			if (Input.GetButton ("Fire1")) { //combat
+
+				Debug.Log("Light Attack active");
+				SetState(PlayerStates.LightAttack);
+			
+			}
+		
+			if (Input.GetButton ("Fire2")) { //combat
+
+
+				Debug.Log("Heavy attack active");
+				SetState(PlayerStates.HeavyAttack);
+			
+			}
+
+			if (Input.GetButton ("Fire3")) { //combat
+			
+			
+				Debug.Log("Kick Active");
+				SetState(PlayerStates.Kick);
+			
+		}
+		
 		}
 	 
 
@@ -113,6 +159,38 @@ public class ActorStateMachine : MonoBehaviour
 				}
 		}
 
+		void DeathState () { //combat
+
+		//anim.SetBool ();
+	
+		}
+
+		void LightAttackState (){ //combat normal damage
+
+		anim.SetTrigger ("AttackLight");
+		SetState (PlayerStates.Idle);
+	
+
+		}
+
+		void HeavyAttackState (){ //combat normal damage * 1.5
+		
+		anim.SetTrigger ("AttackHeavy");
+		SetState (PlayerStates.Idle);
+		
+		
+		}
+		
+	
+		void KickState (){ //combat (no damage just knocked back 2 meters unless emplaced ie. turret)
+		
+		anim.SetTrigger ("Kick");
+		SetState (PlayerStates.Idle);
+		
+		
+		}
+	
+	
 
 
 		//helper functions

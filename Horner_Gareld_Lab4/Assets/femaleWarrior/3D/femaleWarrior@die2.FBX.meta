@@ -93,6 +93,7 @@ ModelImporter:
     400086: //RootNode
     4300000: femaleWarrior
     7400000: Take 001
+    9500000: //RootNode
     11100000: //RootNode
     13700000: femaleWarrior
   materials:
@@ -104,7 +105,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -133,7 +134,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 1
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     human: []
     skeleton: []
@@ -145,7 +146,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 153210a5eb6eb1f4cb1131151b349242,
+    type: 3}
+  animationType: 3
   additionalBone: 0
   userData: 
