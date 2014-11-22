@@ -1,14 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CannonBallRun.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CannonBallRun.cs">
     <Files>
-      <File FileName="Assets\Scripts\Actor\ActorStateMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Shared\Raycast.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skeleton\SkeletonData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Turret\TurretMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skeleton\Dagger.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CannonBallRun.cs" Line="71" Column="1" />
+      <File FileName="Assets/CannonBall.cs" Line="26" Column="17" />
+      <File FileName="Assets/Scripts/CannonBallRun.cs" Line="66" Column="16" />
+      <File FileName="Assets/Scripts/Melee.cs" Line="23" Column="67" />
+      <File FileName="Assets/Scripts/Actor/ActorStateMachine.cs" Line="180" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
