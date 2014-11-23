@@ -169,8 +169,9 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void ChaseState ()
 		{
+				CheckAttack ();		
 				newWaypointAllowed = false;
-				CheckAttack ();
+				
 				skelly.SetDestination (player.position);
 				skelly.speed = data.GetRun ();
 				anim.SetFloat ("Speed", 1f);
@@ -181,7 +182,7 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void AttackState ()
 		{
-
+		newWaypointAllowed = false;
 				anim.SetFloat ("Speed", 0);
 				skelly.Stop ();
 				anim.SetTrigger ("Attack");
@@ -265,5 +266,13 @@ public class SkeletonStateMachine : MonoBehaviour
 						waitTime = endPointWait;
 				}
 		}
+
+	public void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		for (var w = 1; w > navPoints.Length; w++) {
+			Gizmos.DrawLine(navPoints[w-1].position, navPoints[w].position);
+		}
+	}
 
 }

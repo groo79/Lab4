@@ -36,23 +36,26 @@ public class SkeletonView : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other){
-		if (other.tag == "Player") {
-			//Debug.Log ("Player in viewing area");
-			inView = false;
-						Vector3 direction = other.transform.position - transform.position;
-						float angle = Vector3.Angle (direction, transform.forward);
-			if (angle< data.GetAngle() * .05f){
-				//Debug.Log ("Player at angle " + angle);
-				RaycastHit hit;
-				if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit)){
-					if (hit.collider.tag == "Player"){
-						//Debug.Log("skelly saw the lady"); 
-						skelly.setChase(other.transform);
-						inView = true;
-					}
+		if (!skelly.IsDead()){
+
+			if (other.tag == "Player") {
+				//Debug.Log ("Player in viewing area");
+				inView = false;
+							Vector3 direction = other.transform.position - transform.position;
+							float angle = Vector3.Angle (direction, transform.forward);
+					if (angle< data.GetAngle() * .5f){
+						//Debug.Log ("Player at angle " + angle);
+						RaycastHit hit;
+						if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit)){
+							if (hit.collider.tag == "Player"){
+								//Debug.Log("skelly saw the lady"); 
+								skelly.setChase(other.transform);
+								inView = true;
+							}
+						}
 				}
+			}
 		}
-	}
 
 	
 
