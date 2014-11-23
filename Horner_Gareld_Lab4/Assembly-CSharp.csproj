@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Shared\Raycast.cs" />
      <Compile Include="Assets\Scripts\Shared\waypoint.cs" />
      <Compile Include="Assets\Scripts\Skeleton\Dagger.cs" />
+     <Compile Include="Assets\Scripts\Skeleton\SkeletonAttack.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonData.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonView.cs" />
