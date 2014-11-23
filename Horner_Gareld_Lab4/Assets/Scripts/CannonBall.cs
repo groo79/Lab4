@@ -18,6 +18,8 @@ public class CannonBall : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col)
 	{
+		Health health = col.gameObject.GetComponent<Health> ();
+		health.ApplyBooBoo (Damage);
 			Destroy(gameObject);
 	}
 
