@@ -30,10 +30,9 @@ public class SkeletonStateMachine : MonoBehaviour
 		Raycast vision;
 		Animator anim;
 		Health health;
-<<<<<<< Updated upstream
+
 		waypoint point;
-=======
->>>>>>> Stashed changes
+
 		[SerializeField]
 		private float
 				navPoitWait;
