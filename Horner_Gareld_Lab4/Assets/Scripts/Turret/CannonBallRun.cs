@@ -45,29 +45,26 @@ public class CannonBallRun : MonoBehaviour {
 		shotTime += Time.deltaTime;
 
 				if (Boom) {
-						
-								if (shotTime >= fireRate) {
-					
-								Debug.Log ("fire!!");
+			
+					if (shotTime >= fireRate) {
+		
+					Debug.Log ("fire!!");
 
-								float velocity = Mathf.Sqrt ((gobLobber.GetDistance () + fineTuneAim) * Physics.gravity.magnitude);//determine velocity required
+					float velocity = Mathf.Sqrt ((gobLobber.GetDistance () + fineTuneAim) * Physics.gravity.magnitude);//determine velocity required
 
-								//Instantiate(GameObject.cannonBall, new Vector3(i * 2.0F, 0, 0), Quaternion.identity) as Transform;//instantiate cannonball
-								//i++;
+					Rigidbody clone;
 
-								Rigidbody clone;
+					clone = Instantiate (cannonBall, barrel.position, barrel.rotation) as Rigidbody;
 
-								clone = Instantiate (cannonBall, barrel.position, barrel.rotation) as Rigidbody;
+					clone.velocity = barrel.TransformDirection (Vector3.forward * velocity);
 
-								clone.velocity = barrel.TransformDirection (Vector3.forward * velocity);
+					shotTime = 0.0f;
 
-								shotTime = 0.0f;
-
-								//on impact destroy game object((created new script and attached it to the cannonBall game object))
-
-						}
 
 				}
+
+			}
+
 		}
 
 		public void GoblobberGoesBoom (bool fire){

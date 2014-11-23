@@ -45,7 +45,7 @@ public class AttackKick : MonoBehaviour {
 	
 	void kickYouFace ()
 	{
-			if (Kick == true)
+		if (Kick == true && Input.GetButton ("Fire3"))
 			{
 
 			Vector3 dir = Enemy.transform.position - transform.position; dir.y = 0; // keep the force horizontal 

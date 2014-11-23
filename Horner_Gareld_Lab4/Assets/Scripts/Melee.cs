@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Melee : MonoBehaviour {
+public class Melee : MonoBehaviour {//TODO this script is not being used
 
 	int damageDealt = 50;
 	

@@ -32,5 +32,6 @@ public class Damage : MonoBehaviour {
 				
 			health.ApplyBooBoo(damage);
 	}
+
 }
 }

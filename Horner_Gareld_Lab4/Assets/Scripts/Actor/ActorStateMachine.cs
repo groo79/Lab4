@@ -24,7 +24,8 @@ public class ActorStateMachine : MonoBehaviour
 				Death,
 				LightAttack,
 				HeavyAttack,
-				Kick
+				Kick,
+				GetHit
 
 		}
 
@@ -46,6 +47,7 @@ public class ActorStateMachine : MonoBehaviour
 		private Health iNeedABandAid;
 		private bool boughtTheFarm = false;
 		private int attackButton;
+		private bool isHit;
 
 		// Use this for initialization
 		void Start ()
@@ -57,6 +59,7 @@ public class ActorStateMachine : MonoBehaviour
 				fsm.Add (PlayerStates.LightAttack, LightAttackState);
 				fsm.Add (PlayerStates.HeavyAttack, HeavyAttackState);
 				fsm.Add (PlayerStates.Kick, KickState);
+				fsm.Add (PlayerStates.GetHit, TakeHitState);
 				data = GetComponent<ActorData> ();
 				anim = GetComponent<Animator> ();
 				SetState (PlayerStates.Idle);
@@ -106,6 +109,12 @@ public class ActorStateMachine : MonoBehaviour
 						Debug.Log ("Kick Active");
 						SetState (PlayerStates.Kick);
 			
+				}
+				if (isHit == true)
+				{
+
+					SetState (PlayerStates.GetHit);
+
 				}
 		
 		}
@@ -195,6 +204,15 @@ public class ActorStateMachine : MonoBehaviour
 		
 		}
 
+		void TakeHitState ()
+		{
+
+				anim.SetTrigger ("GetHit");
+				SetState (PlayerStates.Idle);
+				isHit = false;
+		
+		}
+	
 
 		//helper functions
 
@@ -259,4 +277,5 @@ public class ActorStateMachine : MonoBehaviour
 						SetState (PlayerStates.Idle);
 				} 
 		}
+	
 }
