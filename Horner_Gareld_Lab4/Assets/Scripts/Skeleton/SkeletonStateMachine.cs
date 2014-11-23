@@ -237,6 +237,9 @@ void CheckAttack(){
 			SetState(States.attack);
 		}
 }
+	public bool IsDead(){
+		return isDead;
+	}
 		
 
 }
