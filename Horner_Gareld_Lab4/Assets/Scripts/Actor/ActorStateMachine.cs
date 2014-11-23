@@ -195,51 +195,6 @@ public class ActorStateMachine : MonoBehaviour
 		
 		}
 
-	/*
-	 * 	void OnTriggerEnter(Collider other) { 
-
-		Vector3 dir = other.transform.position - transform.position; dir.y = 0; // keep the force horizontal 
-
-		if (other.rigidbody){ // use AddForce for rigidbodies: 
-
-			other.rigidbody.AddForce(dir.normalized force);
-
- 		} else { // use a special script for character controllers:
-	// try to get the enemy's script ImpactReceiver:
-
-		ImpactReceiver script = other.GetComponent< ImpactReceiver>(); // if it has such script, add the impact force:
- 
-		if (script) script.AddImpact(dir.normalized force); 
-
-		} 
-
-		} 
-
-		If the enemy is a CharacterController, you must add the script ImpactReceiver below to its prefab, so that all enemies will be able to receive impacts like rigidbodies do:
-
-		using UnityEngine;
-
-		public class ImpactReceiver: MonoBehaviour {
-
-		public float mass = 3.0; // define the character mass
-		Vector3 impact = Vector3.zero; CharacterController character;
-
-		void Start(){
-		character = GetComponent< CharacterController>(); 
-		}
-		void AddImpact(Vector3 force){ // CharacterController version of AddForce impact += force / mass; }
-
-		void Update(){ // apply the impact effect: 
-		if (impact.magnitude > 0.2f){ 
-		character.Move(impact * Time.deltaTime); 
-		}
-
- 	*/
-
-	
-
-	
-
 
 		//helper functions
 

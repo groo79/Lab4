@@ -1,33 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Skeleton\SkeletonView.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Actor/ActorStateMachine.cs">
     <Files>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      <File FileName="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" Line="149" Column="17" />
-      <File FileName="Assets\Scripts\Shared\Raycast.cs" Line="1" Column="1" />
-      <File FileName="..\..\..\..\Desktop\NavAgent.cs" Line="14" Column="82" />
-      <File FileName="Assets\Scripts\Turret\TurretMachine.cs" Line="126" Column="4" />
-      <File FileName="Assets\Scripts\Skeleton\SkeletonData.cs" Line="40" Column="20" />
-      <File FileName="Assets\Scripts\Shared\waypoint.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skeleton\SkeletonView.cs" Line="33" Column="48" />
-=======
-      <File FileName="Assets/Scripts/Health.cs" Line="38" Column="2" />
+      <File FileName="Assets/AttackKick.cs" Line="26" Column="74" />
+      <File FileName="Assets/Scripts/Skeleton/SkeletonStateMachine.cs" Line="209" Column="1" />
+      <File FileName="Assets/Scripts/Health.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Melee.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Actor/ActorStateMachine.cs" Line="235" Column="4" />
-      <File FileName="Assets/Scripts/Turret/TurretMachine.cs" Line="140" Column="1" />
+      <File FileName="Assets/Scripts/Actor/ActorStateMachine.cs" Line="15" Column="56" />
+      <File FileName="Assets/Scripts/Turret/TurretMachine.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Turret/CannonBallRun.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/GameMenu.cs" Line="33" Column="3" />
->>>>>>> Stashed changes
-=======
-      <File FileName="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Shared\Raycast.cs" Line="28" Column="2" />
-      <File FileName="..\..\..\..\Desktop\NavAgent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Turret\TurretMachine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skeleton\SkeletonData.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Shared\waypoint.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skeleton\SkeletonView.cs" Line="1" Column="1" />
->>>>>>> FETCH_HEAD
+      <File FileName="Assets/Scripts/GameMenu.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
