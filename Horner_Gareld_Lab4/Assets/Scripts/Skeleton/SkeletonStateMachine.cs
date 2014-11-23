@@ -29,6 +29,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		SkeletonData data;
 		Raycast vision;
 		Animator anim;
+	Health health;
 		[SerializeField]
 		private float
 				navPoitWait;
@@ -51,8 +52,10 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		//bool to tell if player is seen by enemy
 		bool iSeeYou = false;
+		bool canAttack = false;
+		bool isDead = false;
 		float speed;
-	Vector3 player;
+		Vector3 player;
 
 		// Use this for initialization
 		void Start ()
@@ -68,6 +71,7 @@ public class SkeletonStateMachine : MonoBehaviour
 				data = GetComponent<SkeletonData> ();
 				vision = GetComponent<Raycast> ();
 				anim = GetComponent<Animator> ();
+				health = GetComponent<Health> ();
 				waitTime = navPoitWait;
 				navIndex = 0;
 
@@ -81,7 +85,13 @@ public class SkeletonStateMachine : MonoBehaviour
 		{
 				timer += Time.deltaTime;
 				fsm [curstate].Invoke ();
+		if (health.GetHealth() <= 0.0f) {
+			SetState(States.death);
+			isDead = true;
 		}
+				
+		}
+		
 
 		void OnTriggerEnter (Collider other)
 		{
@@ -116,10 +126,12 @@ public class SkeletonStateMachine : MonoBehaviour
 				} else {
 						curstate = States.idle;
 				}
+		Debug.Log ("Skelly State " + curstate);
 		}
 
 		void IdleState ()
 		{
+				CheckAttack ();
 				skelly.Stop ();
 				anim.SetFloat ("Speed", 0.0f);
 				if (timer >= endPointWait) {
@@ -130,6 +142,7 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void PatrolState ()
 		{
+		CheckAttack ();
 				FindSpeed ();
 				skelly.speed = data.GetWalk ();
 				if (speed <= .001f) {
@@ -147,6 +160,7 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void ChaseState ()
 		{
+				CheckAttack ();
 				skelly.SetDestination (player);
 				skelly.speed = data.GetRun ();
 				anim.SetFloat ("Speed", 1f);
@@ -157,11 +171,18 @@ public class SkeletonStateMachine : MonoBehaviour
 		void AttackState ()
 		{
 
+		anim.SetFloat ("Speed", 0);
+		skelly.Stop ();
+		anim.SetTrigger ("Attack");
+		if (!canAttack) {
+			SetState(States.chase);	
+		}
 		}
 
 		void DeathState ()
 		{
-
+		skelly.Stop ();
+		anim.SetTrigger ("Die");
 		}
 
 		//helper functions
@@ -186,17 +207,19 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		public void CanSee (Transform person, bool canSee)
 		{
-				if (canSee) {
-						player = person.position;
-						SetState (States.chase);
-						if (!canSee) {
-								SetState(States.patrol);
-								navIndex = 0;
+		if (!canAttack) {		
+						if (canSee) {
+								player = person.position;
+								SetState (States.chase);
+								if (!canSee) {
+										SetState (States.patrol);
+										navIndex = 0;
 
-						}
-				}	
+								}
+						}	
 
-		}
+				}
+	}
 
 		void FindSpeed ()
 		{
@@ -204,5 +227,16 @@ public class SkeletonStateMachine : MonoBehaviour
 				float dist = Vector3.Distance (lastPosition, transform.position);
 				speed = Mathf.Abs (dist) / Time.deltaTime;
 		}
+
+	public void ChangeAttackState(bool state){
+		canAttack = state;
+	}
+
+void CheckAttack(){
+		if (canAttack) {
+			SetState(States.attack);
+		}
+}
+		
 
 }
