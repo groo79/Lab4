@@ -96,33 +96,11 @@ public class SkeletonStateMachine : MonoBehaviour
 						SetState (States.death);
 						isDead = true;
 				}
+
+
 				
 		}
 
-		void OnTriggerEnter (Collider other)// finding next waypoint if new waypoint is triggered.
-		{
-
-				if (newWaypointAllowed == true) {
-
-						if (other.tag == "Waypoint") {
-								point = other.gameObject.GetComponent<waypoint> ();
-								timer = 0f;
-								SetWaypoint ();
-								newWaypointAllowed = false;
-
-						}
-				}	
-		}
-
-		void OnTriggerExit (Collider other)//setting state back to idle if player escapes skelly
-		{
-				if (other.tag == "Player") {
-						if (curstate == States.chase) {
-								SetState (States.idle);
-						}
-				}
-
-		}
 
 		//state functions
 
@@ -150,15 +128,19 @@ public class SkeletonStateMachine : MonoBehaviour
 		void PatrolState ()
 		{
 				CheckAttack ();
-				Wait ();
+				//Wait ();
 				FindSpeed ();
 				skelly.speed = data.GetWalk ();
 				if (speed <= .001f) {
 						anim.SetFloat ("Speed", 0);
+						
 				}
 
 				if (timer >= waitTime) {
-						FindDestination ();
+			if(skelly.hasPath == false){
+				SetWaypoint();
+
+			}			FindDestination();
 						newWaypointAllowed = true;
 						anim.SetFloat ("Speed", (data.GetWalk () / data.GetRun ()));
 				}
@@ -201,24 +183,26 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void FindDestination ()//setting skelly's patrol waypoint GH
 		{
+				
 				Vector3 newTravelPosition = navPoints [navIndex].position;
 				skelly.SetDestination (newTravelPosition);
 		}
 
 		void SetWaypoint ()// setting next waypoint destination GH
 		{
-				if (newWaypointAllowed) {
 						++navIndex;
-						if (navIndex >= navPoints.Length) {
-				
+						if (navIndex >= navPoints.Length) 
+						{
 								navIndex = 0;
-					
 						}
 						Debug.Log ("Waypoint " + navIndex + " selected");
-						newWaypointAllowed = false;
+						//newWaypointAllowed = false;
 						timer = 0;
+						Vector3 newTravelPosition = navPoints [navIndex].position;
+						skelly.SetDestination (newTravelPosition);
+
 				}
-		}
+		
 
 		public void setChase (Transform person)// setting skelly to chase from the skeleton View script GH
 		{
@@ -253,19 +237,7 @@ public class SkeletonStateMachine : MonoBehaviour
 				return isDead;
 		}
 
-		/*void targetPlayer ()
-		{
-
-		}*/
-
-		void Wait ()//sets wait time based on bool in waypoint script GH
-		{
-				if (point.getPause ()) {
-						waitTime = endPointWait;		
-				} else if (point.getPause () == false) {
-						waitTime = endPointWait;
-				}
-		}
+		
 
 	public void OnDrawGizmos()
 	{
