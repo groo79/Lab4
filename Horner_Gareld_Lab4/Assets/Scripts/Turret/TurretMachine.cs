@@ -75,7 +75,7 @@ public class TurretMachine : MonoBehaviour
 				} else {
 						curState = TurretState.Idle;
 				}
-				Debug.Log (curState);
+				//Debug.Log (curState);
 		}
 
 		void IdleState ()
@@ -136,4 +136,5 @@ public class TurretMachine : MonoBehaviour
 		{
 				return player;
 		}
+
 }

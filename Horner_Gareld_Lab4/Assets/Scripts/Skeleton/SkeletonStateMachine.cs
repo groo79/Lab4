@@ -30,6 +30,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		Raycast vision;
 		Animator anim;
 	Health health;
+	waypoint point;
 		[SerializeField]
 		private float
 				navPoitWait;
@@ -40,8 +41,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		private float
 				chaseEndWait;
 		[SerializeField]
-		private Transform[]
-				navPoints;
+		private Transform[] navPoints;
 		int navIndex = 0;
 
 		//variable to call the current wait time in states.
@@ -55,7 +55,10 @@ public class SkeletonStateMachine : MonoBehaviour
 		bool canAttack = false;
 		bool isDead = false;
 		float speed;
-		Vector3 player;
+	[SerializeField]
+		Transform player;
+	//trying to prevent setwaypoint from running more than once.
+	bool newWaypointAllowed = true;
 
 		// Use this for initialization
 		void Start ()
@@ -96,12 +99,13 @@ public class SkeletonStateMachine : MonoBehaviour
 		void OnTriggerEnter (Collider other)
 		{
 
-				if (curstate != States.chase) {
+				if (newWaypointAllowed == true) {
 
 						if (other.tag == "Waypoint") {
-
+								point = other.gameObject.GetComponent<waypoint>();
 								timer = 0f;
 								SetWaypoint ();
+				newWaypointAllowed = false;
 
 						}
 				}	
@@ -134,7 +138,7 @@ public class SkeletonStateMachine : MonoBehaviour
 				CheckAttack ();
 				skelly.Stop ();
 				anim.SetFloat ("Speed", 0.0f);
-				if (timer >= endPointWait) {
+				if (timer >= waitTime) {
 						SetState (States.patrol);
 				}
 
@@ -143,6 +147,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		void PatrolState ()
 		{
 		CheckAttack ();
+		Wait ();
 				FindSpeed ();
 				skelly.speed = data.GetWalk ();
 				if (speed <= .001f) {
@@ -151,6 +156,7 @@ public class SkeletonStateMachine : MonoBehaviour
 
 				if (timer >= waitTime) {
 						FindDestination ();
+			newWaypointAllowed = true;
 						anim.SetFloat ("Speed", (data.GetWalk () / data.GetRun ()));
 				}
 
@@ -160,10 +166,12 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void ChaseState ()
 		{
+				newWaypointAllowed = false;
 				CheckAttack ();
-				skelly.SetDestination (player);
+				skelly.SetDestination (player.position);
 				skelly.speed = data.GetRun ();
 				anim.SetFloat ("Speed", 1f);
+		waitTime = chaseEndWait;
 				
 
 		}
@@ -195,30 +203,25 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void SetWaypoint ()
 		{
-				++navIndex;
-				Debug.Log ("Waypoint " + navIndex + " selected");
-			
-				if (navIndex >= navPoints.Length) {
+		if (newWaypointAllowed) {
+						++navIndex;
+						if (navIndex >= navPoints.Length) {
 				
-						navIndex = 0;
+								navIndex = 0;
 					
+						}
+						Debug.Log ("Waypoint " + navIndex + " selected");
+						newWaypointAllowed = false;
+						timer = 0;
 				}
 		}
 
-		public void CanSee (Transform person, bool canSee)
+		public void setChase(Transform person)
 		{
-		if (!canAttack) {		
-						if (canSee) {
-								player = person.position;
-								SetState (States.chase);
-								if (!canSee) {
-										SetState (States.patrol);
-										navIndex = 0;
-
-								}
-						}	
-
-				}
+		if (!canAttack) {
+			player = person;
+			SetState(States.chase);
+		}
 	}
 
 		void FindSpeed ()
@@ -228,7 +231,8 @@ public class SkeletonStateMachine : MonoBehaviour
 				speed = Mathf.Abs (dist) / Time.deltaTime;
 		}
 
-	public void ChangeAttackState(bool state){
+	public void ChangeAttackState(Transform person, bool state){
+		player = person;
 		canAttack = state;
 	}
 
@@ -240,6 +244,16 @@ void CheckAttack(){
 	public bool IsDead(){
 		return isDead;
 	}
-		
+	void targetPlayer(){
+
+	}	
+
+	void Wait(){
+		if (point.getPause ()) {
+						waitTime = endPointWait;		
+				} else if (point.getPause () == false) {
+			waitTime = endPointWait;
+		}
+	}
 
 }

@@ -34,14 +34,14 @@ public class SkeletonAttack : MonoBehaviour
 		{
 				if (other.tag == "Player") {
 						if (skelly.IsDead () == false) {
-								skelly.ChangeAttackState (true);
+								skelly.ChangeAttackState (other.transform, true);
 						}
 				} 
 		}
 
 		void OnTriggerExit (Collider other)
 		{
-				skelly.ChangeAttackState (false);
+				skelly.ChangeAttackState (other.transform, false);
 
 		}
 }
