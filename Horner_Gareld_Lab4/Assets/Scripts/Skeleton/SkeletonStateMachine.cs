@@ -52,6 +52,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		//bool to tell if player is seen by enemy
 		bool iSeeYou = false;
 		float speed;
+	Vector3 player;
 
 		// Use this for initialization
 		void Start ()
@@ -66,7 +67,7 @@ public class SkeletonStateMachine : MonoBehaviour
 				skelly = GetComponent<NavMeshAgent> ();
 				data = GetComponent<SkeletonData> ();
 				vision = GetComponent<Raycast> ();
-		anim = GetComponent<Animator> ();
+				anim = GetComponent<Animator> ();
 				waitTime = navPoitWait;
 				navIndex = 0;
 
@@ -82,25 +83,29 @@ public class SkeletonStateMachine : MonoBehaviour
 				fsm [curstate].Invoke ();
 		}
 
-	void OnTriggerEnter(Collider other){
+		void OnTriggerEnter (Collider other)
+		{
 
-		if (other.tag == "Waypoint") {
+				if (curstate != States.chase) {
 
-			timer = 0f;
-			SetWaypoint();
+						if (other.tag == "Waypoint") {
 
-		}
-				
-	}
+								timer = 0f;
+								SetWaypoint ();
 
-	void OnTriggerExit(Collider other){
-		if (other.tag == "Player") {
-			if (curstate == States.chase){
-				SetState(States.idle);
-			}
+						}
+				}	
 		}
 
-	}
+		void OnTriggerExit (Collider other)
+		{
+				if (other.tag == "Player") {
+						if (curstate == States.chase) {
+								SetState (States.idle);
+						}
+				}
+
+		}
 
 		//state functions
 
@@ -115,26 +120,26 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void IdleState ()
 		{
-		skelly.Stop ();
-		anim.SetFloat("Speed", 0.0f);
-		if (timer >= endPointWait) {
-			SetState(States.patrol);
-		}
+				skelly.Stop ();
+				anim.SetFloat ("Speed", 0.0f);
+				if (timer >= endPointWait) {
+						SetState (States.patrol);
+				}
 
 		}
 
 		void PatrolState ()
 		{
-		FindSpeed ();
-		skelly.speed = data.GetWalk ();
-		if (speed <= .001f) {
-			anim.SetFloat("Speed",0);
-		}
+				FindSpeed ();
+				skelly.speed = data.GetWalk ();
+				if (speed <= .001f) {
+						anim.SetFloat ("Speed", 0);
+				}
 
-		if (timer >= waitTime) {
-			FindDestination();
-			anim.SetFloat("Speed", (data.GetWalk() / data.GetRun()));
-		}
+				if (timer >= waitTime) {
+						FindDestination ();
+						anim.SetFloat ("Speed", (data.GetWalk () / data.GetRun ()));
+				}
 
 
 
@@ -142,13 +147,10 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void ChaseState ()
 		{
-		skelly.speed = data.GetRun ();
-		FindDestination ();
-		anim.SetFloat("Speed", 1f);
-		if (!iSeeYou) {
-			navIndex = 0;
-			SetState(States.idle);
-		}
+				skelly.SetDestination (player);
+				skelly.speed = data.GetRun ();
+				anim.SetFloat ("Speed", 1f);
+				
 
 		}
 
@@ -182,20 +184,25 @@ public class SkeletonStateMachine : MonoBehaviour
 				}
 		}
 
-		public void CanSee(Transform player, bool canSee){
-		if (canSee) {
-						skelly.SetDestination (player.position);
+		public void CanSee (Transform person, bool canSee)
+		{
+				if (canSee) {
+						player = person.position;
 						SetState (States.chase);
-						iSeeYou = true;
-				} else {
-			iSeeYou = false;
-		}
+						if (!canSee) {
+								SetState(States.patrol);
+								navIndex = 0;
+
+						}
+				}	
 
 		}
-	void FindSpeed(){
-		Vector3 lastPosition = transform.position;
-		float dist = Vector3.Distance (lastPosition, transform.position);
-		speed = Mathf.Abs (dist) / Time.deltaTime;
-	}
+
+		void FindSpeed ()
+		{
+				Vector3 lastPosition = transform.position;
+				float dist = Vector3.Distance (lastPosition, transform.position);
+				speed = Mathf.Abs (dist) / Time.deltaTime;
+		}
 
 }

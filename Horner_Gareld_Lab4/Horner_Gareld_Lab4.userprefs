@@ -1,7 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Skeleton\SkeletonStateMachine.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Skeleton\SkeletonView.cs">
     <Files>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       <File FileName="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" Line="149" Column="17" />
       <File FileName="Assets\Scripts\Shared\Raycast.cs" Line="1" Column="1" />
@@ -18,6 +19,15 @@
       <File FileName="Assets/Scripts/Turret/CannonBallRun.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/GameMenu.cs" Line="33" Column="3" />
 >>>>>>> Stashed changes
+=======
+      <File FileName="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Shared\Raycast.cs" Line="28" Column="2" />
+      <File FileName="..\..\..\..\Desktop\NavAgent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Turret\TurretMachine.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Skeleton\SkeletonData.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Shared\waypoint.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Skeleton\SkeletonView.cs" Line="1" Column="1" />
+>>>>>>> FETCH_HEAD
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
