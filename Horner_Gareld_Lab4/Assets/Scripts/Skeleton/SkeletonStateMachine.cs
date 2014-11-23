@@ -29,8 +29,8 @@ public class SkeletonStateMachine : MonoBehaviour
 		SkeletonData data;
 		Raycast vision;
 		Animator anim;
-	Health health;
-	waypoint point;
+		Health health;
+		waypoint point;
 		[SerializeField]
 		private float
 				navPoitWait;
@@ -41,7 +41,8 @@ public class SkeletonStateMachine : MonoBehaviour
 		private float
 				chaseEndWait;
 		[SerializeField]
-		private Transform[] navPoints;
+		private Transform[]
+				navPoints;
 		int navIndex = 0;
 
 		//variable to call the current wait time in states.
@@ -55,10 +56,11 @@ public class SkeletonStateMachine : MonoBehaviour
 		bool canAttack = false;
 		bool isDead = false;
 		float speed;
-	[SerializeField]
-		Transform player;
-	//trying to prevent setwaypoint from running more than once.
-	bool newWaypointAllowed = true;
+		[SerializeField]
+		Transform
+				player;
+		//trying to prevent setwaypoint from running more than once.
+		bool newWaypointAllowed = true;
 
 		// Use this for initialization
 		void Start ()
@@ -88,30 +90,29 @@ public class SkeletonStateMachine : MonoBehaviour
 		{
 				timer += Time.deltaTime;
 				fsm [curstate].Invoke ();
-		if (health.GetHealth() <= 0.0f) {
-			SetState(States.death);
-			isDead = true;
-		}
+				if (health.GetHealth () <= 0.0f) {
+						SetState (States.death);
+						isDead = true;
+				}
 				
 		}
-		
 
-		void OnTriggerEnter (Collider other)
+		void OnTriggerEnter (Collider other)// finding next waypoint if new waypoint is triggered.
 		{
 
 				if (newWaypointAllowed == true) {
 
 						if (other.tag == "Waypoint") {
-								point = other.gameObject.GetComponent<waypoint>();
+								point = other.gameObject.GetComponent<waypoint> ();
 								timer = 0f;
 								SetWaypoint ();
-				newWaypointAllowed = false;
+								newWaypointAllowed = false;
 
 						}
 				}	
 		}
 
-		void OnTriggerExit (Collider other)
+		void OnTriggerExit (Collider other)//setting state back to idle if player escapes skelly
 		{
 				if (other.tag == "Player") {
 						if (curstate == States.chase) {
@@ -130,7 +131,7 @@ public class SkeletonStateMachine : MonoBehaviour
 				} else {
 						curstate = States.idle;
 				}
-		Debug.Log ("Skelly State " + curstate);
+				Debug.Log ("Skelly State " + curstate);
 		}
 
 		void IdleState ()
@@ -146,8 +147,8 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void PatrolState ()
 		{
-		CheckAttack ();
-		Wait ();
+				CheckAttack ();
+				Wait ();
 				FindSpeed ();
 				skelly.speed = data.GetWalk ();
 				if (speed <= .001f) {
@@ -156,7 +157,7 @@ public class SkeletonStateMachine : MonoBehaviour
 
 				if (timer >= waitTime) {
 						FindDestination ();
-			newWaypointAllowed = true;
+						newWaypointAllowed = true;
 						anim.SetFloat ("Speed", (data.GetWalk () / data.GetRun ()));
 				}
 
@@ -171,7 +172,7 @@ public class SkeletonStateMachine : MonoBehaviour
 				skelly.SetDestination (player.position);
 				skelly.speed = data.GetRun ();
 				anim.SetFloat ("Speed", 1f);
-		waitTime = chaseEndWait;
+				waitTime = chaseEndWait;
 				
 
 		}
@@ -179,31 +180,31 @@ public class SkeletonStateMachine : MonoBehaviour
 		void AttackState ()
 		{
 
-		anim.SetFloat ("Speed", 0);
-		skelly.Stop ();
-		anim.SetTrigger ("Attack");
-		if (!canAttack) {
-			SetState(States.chase);	
-		}
+				anim.SetFloat ("Speed", 0);
+				skelly.Stop ();
+				anim.SetTrigger ("Attack");
+				if (!canAttack) {
+						SetState (States.chase);	
+				}
 		}
 
 		void DeathState ()
 		{
-		skelly.Stop ();
-		anim.SetTrigger ("Die");
+				skelly.Stop ();
+				anim.SetTrigger ("Die");
 		}
 
 		//helper functions
 
-		void FindDestination ()
+		void FindDestination ()//setting skelly's patrol waypoint GH
 		{
 				Vector3 newTravelPosition = navPoints [navIndex].position;
 				skelly.SetDestination (newTravelPosition);
 		}
 
-		void SetWaypoint ()
+		void SetWaypoint ()// setting next waypoint destination GH
 		{
-		if (newWaypointAllowed) {
+				if (newWaypointAllowed) {
 						++navIndex;
 						if (navIndex >= navPoints.Length) {
 				
@@ -216,44 +217,51 @@ public class SkeletonStateMachine : MonoBehaviour
 				}
 		}
 
-		public void setChase(Transform person)
+		public void setChase (Transform person)// setting skelly to chase from the skeleton View script GH
 		{
-		if (!canAttack) {
-			player = person;
-			SetState(States.chase);
+				if (!canAttack) {
+						player = person;
+						SetState (States.chase);
+				}
 		}
-	}
 
-		void FindSpeed ()
+		void FindSpeed ()// finding the appropriate float value to set anim speed variable to for a walk. GH
 		{
 				Vector3 lastPosition = transform.position;
 				float dist = Vector3.Distance (lastPosition, transform.position);
 				speed = Mathf.Abs (dist) / Time.deltaTime;
 		}
 
-	public void ChangeAttackState(Transform person, bool state){
-		player = person;
-		canAttack = state;
-	}
-
-void CheckAttack(){
-		if (canAttack) {
-			SetState(States.attack);
+		public void ChangeAttackState (Transform person, bool state)
+		{
+				player = person;
+				canAttack = state;
 		}
-}
-	public bool IsDead(){
-		return isDead;
-	}
-	void targetPlayer(){
 
-	}	
+		void CheckAttack ()//checking if skelly can attack player GH
+		{
+				if (canAttack) {
+						SetState (States.attack);
+				}
+		}
 
-	void Wait(){
-		if (point.getPause ()) {
+		public bool IsDead ()//accessor to check player death status GH
+		{
+				return isDead;
+		}
+
+		/*void targetPlayer ()
+		{
+
+		}*/
+
+		void Wait ()//sets wait time based on bool in waypoint script GH
+		{
+				if (point.getPause ()) {
 						waitTime = endPointWait;		
 				} else if (point.getPause () == false) {
-			waitTime = endPointWait;
+						waitTime = endPointWait;
+				}
 		}
-	}
 
 }
