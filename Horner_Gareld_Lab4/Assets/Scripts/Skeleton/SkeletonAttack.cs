@@ -34,9 +34,7 @@ public class SkeletonAttack : MonoBehaviour
 		{
 				if (other.tag == "Player") {
 						skelly.ChangeAttackState (true);
-				} else {
-						skelly.ChangeAttackState (false);
-				}
+				} 
 		}
 
 		void OnTriggerExit (Collider other)

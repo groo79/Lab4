@@ -165,7 +165,6 @@ public class SkeletonStateMachine : MonoBehaviour
 		{
 
 		anim.SetFloat ("Speed", 0);
-		player.y = 0f;
 		skelly.Stop ();
 		anim.SetTrigger ("Attack");
 		if (!canAttack) {
