@@ -29,6 +29,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		SkeletonData data;
 		Raycast vision;
 		Animator anim;
+	Health health;
 		[SerializeField]
 		private float
 				navPoitWait;
@@ -52,6 +53,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		//bool to tell if player is seen by enemy
 		bool iSeeYou = false;
 		bool canAttack = false;
+		bool isDead = false;
 		float speed;
 		Vector3 player;
 
@@ -69,6 +71,7 @@ public class SkeletonStateMachine : MonoBehaviour
 				data = GetComponent<SkeletonData> ();
 				vision = GetComponent<Raycast> ();
 				anim = GetComponent<Animator> ();
+				health = GetComponent<Health> ();
 				waitTime = navPoitWait;
 				navIndex = 0;
 
@@ -82,6 +85,10 @@ public class SkeletonStateMachine : MonoBehaviour
 		{
 				timer += Time.deltaTime;
 				fsm [curstate].Invoke ();
+		if (health.GetHealth() <= 0.0f) {
+			SetState(States.death);
+			isDead = true;
+		}
 				
 		}
 		
@@ -174,7 +181,8 @@ public class SkeletonStateMachine : MonoBehaviour
 
 		void DeathState ()
 		{
-
+		skelly.Stop ();
+		anim.SetTrigger ("Die");
 		}
 
 		//helper functions

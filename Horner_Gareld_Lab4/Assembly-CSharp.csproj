@@ -53,9 +53,9 @@
      <Compile Include="Assets\Scripts\GameMenu.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\Melee.cs" />
+     <Compile Include="Assets\Scripts\Shared\Damage.cs" />
      <Compile Include="Assets\Scripts\Shared\Raycast.cs" />
      <Compile Include="Assets\Scripts\Shared\waypoint.cs" />
-     <Compile Include="Assets\Scripts\Skeleton\Dagger.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonAttack.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonData.cs" />
      <Compile Include="Assets\Scripts\Skeleton\SkeletonStateMachine.cs" />
