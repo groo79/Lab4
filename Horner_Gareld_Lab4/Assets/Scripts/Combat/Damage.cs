@@ -1,15 +1,13 @@
-﻿using UnityEngine;
+﻿// Name: Aaron Barnard
+// Date: 11/22/2014
+// Credit: Unity Scripting API on raycasting
+// Purpose: Store and pass along damage info for weapons
+
+using UnityEngine;
 using System.Collections;
 
 public class Damage : MonoBehaviour {
 
-
-	// <summary>
-	/// Name: Gareld Horner
-	/// Date: 11/22/2014
-	/// Credit: Unity Scripting API on raycasting
-	/// Purpose: Store and pass along damage info for weapon.
-	/// </summary>
 
 	[SerializeField]
 	int damage;
