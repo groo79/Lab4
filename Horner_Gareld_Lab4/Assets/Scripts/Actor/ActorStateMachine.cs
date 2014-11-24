@@ -35,19 +35,18 @@ public class ActorStateMachine : MonoBehaviour
 		private float maxDeltaVel;
 		[SerializeField]
 		private float force = 500;
+		[SerializeField]
+		Collider Sword;
 		ActorData data;
 		private bool isRunning = false;
 		private float moveSpeed;
-		[SerializeField]
-		private bool
-				moving = false;
-		[SerializeField]
-		private bool
-				running = false;
+		private bool moving = false;
+		private bool running = false;
 		private Health iNeedABandAid;
 		private bool boughtTheFarm = false;
 		private int attackButton;
 		private bool isHit;
+	float timer;
 
 		// Use this for initialization
 		void Start ()
@@ -87,26 +86,32 @@ public class ActorStateMachine : MonoBehaviour
 
 				}
 
+
 		
 				if (Input.GetButton ("Fire1")) { //combat
 
-						Debug.Log ("Light Attack active");
+						//Debug.Log ("Light Attack active");
 						SetState (PlayerStates.LightAttack);
+						Sword.enabled = true;
+						Invoke("SwordOff", 1.0f);
+
 			
 				}
 		
 				if (Input.GetButton ("Fire2")) { //combat
 
 
-						Debug.Log ("Heavy attack active");
+						//Debug.Log ("Heavy attack active");
 						SetState (PlayerStates.HeavyAttack);
+						Sword.enabled = true;
+						Invoke("SwordOff", 1.0f);
 			
 				}
 
 				if (Input.GetButton ("Fire3")) { //combat
 			
 			
-						Debug.Log ("Kick Active");
+						//Debug.Log ("Kick Active");
 						SetState (PlayerStates.Kick);
 			
 				}
@@ -126,11 +131,11 @@ public class ActorStateMachine : MonoBehaviour
 		{
 				if (newState != null) {
 						curstate = newState;
-						Debug.Log (curstate);
+						//Debug.Log (curstate);
 				} else {
 						curstate = PlayerStates.Idle;
 				}
-				Debug.Log (curstate);
+				//Debug.Log (curstate);
 		}
 
 		void IdleState ()
@@ -277,5 +282,9 @@ public class ActorStateMachine : MonoBehaviour
 						SetState (PlayerStates.Idle);
 				} 
 		}
+
+	void SwordOff(){
+		Sword.enabled = false;
+	}
 	
 }

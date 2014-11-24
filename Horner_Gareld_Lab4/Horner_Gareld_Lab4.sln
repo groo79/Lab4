@@ -5,6 +5,8 @@ Project("{BC0CDDF8-B864-32AE-8790-758893B638CB}") = "Horner_Gareld_Lab4", "Assem
 EndProject
 Project("{BC0CDDF8-B864-32AE-8790-758893B638CB}") = "Horner_Gareld_Lab4", "Assembly-UnityScript.unityproj", "{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}"
 EndProject
+Project("{BC0CDDF8-B864-32AE-8790-758893B638CB}") = "Horner_Gareld_Lab4", "Assembly-UnityScript-Editor.unityproj", "{CF660896-2AC6-9525-9033-78D742B750F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +21,15 @@ Global
 		{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAADD5A6-B684-95B1-AAB6-899F4A61A6D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF660896-2AC6-9525-9033-78D742B750F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF660896-2AC6-9525-9033-78D742B750F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF660896-2AC6-9525-9033-78D742B750F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF660896-2AC6-9525-9033-78D742B750F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																											GlobalSection(MonoDevelopProperties) = preSolution
+																																																																														GlobalSection(MonoDevelopProperties) = preSolution
 																																																																							GlobalSection(MonoDevelopProperties) = preSolution
 																																																																	GlobalSection(MonoDevelopProperties) = preSolution
 																																				GlobalSection(MonoDevelopProperties) = preSolution

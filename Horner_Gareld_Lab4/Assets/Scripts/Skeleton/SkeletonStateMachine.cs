@@ -31,7 +31,7 @@ public class SkeletonStateMachine : MonoBehaviour
 		Animator anim;
 		Health health;
 
-		waypoint point;
+		waypoint point;		
 
 		[SerializeField]
 		private float
